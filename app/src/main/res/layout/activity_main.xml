@@ -10,10 +10,13 @@
         android:id="@+id/locationText"
         android:layout_width="253dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toTopOf="@+id/current"
+        app:layout_constraintEnd_toStartOf="@+id/queryButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.25"
-        tools:layout_editor_absoluteX="15dp"
         tools:text="@string/city_search_string" />
 
 
@@ -21,7 +24,6 @@
         android:id="@+id/temperatureTextView"
         android:layout_width="110dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
         android:textColor="#000000"
         android:textSize="30sp"
@@ -36,6 +38,7 @@
         android:id="@+id/queryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/kitchener"
         app:layout_constraintBottom_toTopOf="@+id/locationString"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,14 +48,21 @@
 
     <TextView
         android:id="@+id/current"
-        android:layout_width="313dp"
-        android:layout_height="71dp"
+        android:layout_width="160dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/current_temp_in_string"
-        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41000003" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <TextView
         android:id="@+id/locationString"
@@ -63,13 +73,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/temperatureTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintHorizontal_bias="0.89"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.521" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -78,12 +89,21 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:contentDescription="@string/weatherIcon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
+
+    <TextView
+        android:id="@+id/currentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="111dp"
+        tools:layout_editor_absoluteY="339dp" />
 
     <!--<TextView-->
         <!--android:id="@+id/condition"-->

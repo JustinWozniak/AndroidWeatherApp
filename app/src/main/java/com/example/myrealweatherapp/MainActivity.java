@@ -1,8 +1,17 @@
 package com.example.myrealweatherapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -35,6 +44,22 @@ public class MainActivity extends AppCompatActivity {
     String query = "";
     String finalUrl = "";
 
+    LocationManager locationManager;
+    LocationListener locationListener;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            }
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +73,40 @@ public class MainActivity extends AppCompatActivity {
         currentCity = findViewById(R.id.current);
         mainIcon.setVisibility(View.GONE);
         currentCity.setVisibility(View.GONE);
-//        weatherTypeName.findViewById(R.id.condition);
+//      weatherTypeName.findViewById(R.id.condition);
         queryButton = findViewById(R.id.queryButton);
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.e("Location working? ", location.toString());
+
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        };
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        }
+
         queryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Response-->", response);
 //            temperatureText.setText(response);    USED TO SHOW THE RETURNED JSON DATA
             try {
-
                 JSONTokener jsonTokener = new JSONTokener(response);
                 JSONObject topObject = (JSONObject) jsonTokener.nextValue();
 
@@ -114,17 +170,17 @@ public class MainActivity extends AppCompatActivity {
                 String iconString = weatherObject.getString("icon");
                 String weatherDescription = weatherObject.getString("main");
 
-//                Log.i("WORKED!!!----->", Double.toString(temp));
+//              Log.i("WORKED!!!----->", Double.toString(temp));
                 Log.e("WORKED!!!--Name>", weatherDescription);
-//                Log.i("WeatherWORKED!!!----->", weatherArray.toString());
-//                Log.i("WeatherObjectWORKED!!>", weatherObject.toString());
-//                Log.i("WeatherstringWORKED!!>", iconString);
+//              Log.i("WeatherWORKED!!!----->", weatherArray.toString());
+//              Log.i("WeatherObjectWORKED!!>", weatherObject.toString());
+//              Log.i("WeatherstringWORKED!!>", iconString);
                 temperature.setText(Double.toString(temp));
                 temperature.setText(Double.toString(temp));
                 cityNameText.setText(cityName);
                 currentCity.setVisibility(View.VISIBLE);
                 mainIcon.setVisibility(View.VISIBLE);
-//                weatherTypeName.setVisibility(View.VISIBLE);
+//              weatherTypeName.setVisibility(View.VISIBLE);
 
 //
 
@@ -133,26 +189,58 @@ public class MainActivity extends AppCompatActivity {
 //                weatherTypeName.setText(weatherDescription);
                 Log.e("WORKED?--Name>", weatherType);
                 switch (weatherType) {
-                    case "01d":
-                        mainIcon.setImageResource(R.drawable.cloudy);
+                    case "02d":
+                        mainIcon.setImageResource(R.drawable.icon_02d);
+                        break;
+                    case "03d":
+                        mainIcon.setImageResource(R.drawable.icon_03d);
+                        break;
+                    case "04d":
+                        mainIcon.setImageResource(R.drawable.icon_04d);
+                        break;
+                    case "09d":
+                        mainIcon.setImageResource(R.drawable.icon_09d);
+                        break;
+                    case "10d":
+                        mainIcon.setImageResource(R.drawable.icon_10d);
+                        break;
+                    case "11d":
+                        mainIcon.setImageResource(R.drawable.icon_11d);
                         break;
                     case "13d":
-                        mainIcon.setImageResource(R.drawable.snow);
-                        break;
-                    case "02d":
-                        mainIcon.setImageResource(R.drawable.sunny);
-                        break;
-                    case "09n":
-                        mainIcon.setImageResource(R.drawable.rainy);
-                        break;
-                    case "11n":
-                        mainIcon.setImageResource(R.drawable.alert);
+                        mainIcon.setImageResource(R.drawable.icon_13d);
                         break;
                     case "50d":
-                        mainIcon.setImageResource(R.drawable.alert);
+                        mainIcon.setImageResource(R.drawable.icon_50d);
                         break;
+
+                    case "02n":
+                        mainIcon.setImageResource(R.drawable.icon_02n);
+                        break;
+                    case "03n":
+                        mainIcon.setImageResource(R.drawable.icon_03n);
+                        break;
+                    case "04n":
+                        mainIcon.setImageResource(R.drawable.icon_04n);
+                        break;
+                    case "09n":
+                        mainIcon.setImageResource(R.drawable.icon_09n);
+                        break;
+                    case "10n":
+                        mainIcon.setImageResource(R.drawable.icon_10n);
+                        break;
+                    case "11n":
+                        mainIcon.setImageResource(R.drawable.icon_11n);
+                        break;
+                    case "13n":
+                        mainIcon.setImageResource(R.drawable.icon_13n);
+                        break;
+                    case "50n":
+                        mainIcon.setImageResource(R.drawable.icon_50n);
+                        break;
+
                     default:
-                        mainIcon.setImageResource(R.drawable.clouded);
+                        mainIcon.setImageResource(R.drawable.alert);
                         break;
                 }
 
