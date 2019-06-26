@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,6 +18,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView mainIcon;
     TextView cityNameText;
     Button queryButton;
+    Button fiveDay;
     TextView currentCity;
     TextView weatherTypeName;
     static final String API_KEY = "37c0fb022a528bcc6afc1295558f1efb&units=metric";
@@ -46,6 +49,18 @@ public class MainActivity extends AppCompatActivity {
 
     LocationManager locationManager;
     LocationListener locationListener;
+
+
+    /** Called when the user taps the Five-day forecast button */
+
+
+    public void fiveDayView(View view) {
+        Intent intent = new Intent(this, fiveDayView.class);
+        startActivity(intent);
+    }
+
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -65,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         temperatureText = findViewById(R.id.locationText);
         temperature = findViewById(R.id.temperatureTextView);
         mainIcon = findViewById(R.id.imageView);
@@ -73,9 +87,11 @@ public class MainActivity extends AppCompatActivity {
         currentCity = findViewById(R.id.current);
         mainIcon.setVisibility(View.GONE);
         currentCity.setVisibility(View.GONE);
-//      weatherTypeName.findViewById(R.id.condition);
+        cityNameText.setVisibility(View.GONE);
+        temperature.setVisibility(View.GONE);
         queryButton = findViewById(R.id.queryButton);
-
+        fiveDay = findViewById(R.id.fiveDayButton);
+        fiveDay.setVisibility(View.GONE);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
 
@@ -176,8 +192,12 @@ public class MainActivity extends AppCompatActivity {
 //              Log.i("WeatherObjectWORKED!!>", weatherObject.toString());
 //              Log.i("WeatherstringWORKED!!>", iconString);
                 temperature.setText(Double.toString(temp));
-                temperature.setText(Double.toString(temp));
+                temperature.setText(Double.toString(temp) + "°");
+                cityNameText.setVisibility(View.VISIBLE);
                 cityNameText.setText(cityName);
+                queryButton.setVisibility(View.GONE);
+                fiveDay.setVisibility(View.VISIBLE);
+                temperature.setVisibility(View.VISIBLE);
                 currentCity.setVisibility(View.VISIBLE);
                 mainIcon.setVisibility(View.VISIBLE);
 //              weatherTypeName.setVisibility(View.VISIBLE);

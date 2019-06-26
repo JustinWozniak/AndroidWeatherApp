@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">Myrealweatherapp</string>
+    <string name="app_name">Justins Weather App!~</string>
     <string name="city_search_string">Input a city to search for....</string>
-    <string name="search_buuton_string">City Search</string>
-    <string name="current_temp_in_string">Current Temperature in:</string>
+    <string name="search_button_string">City Search</string>
+    <string name="current_temp_in_string">Currently in:</string>
     <string name="kitchener">Kitchener</string>
     <string name="weatherIcon">Weather Icon</string>
+    <string name="City">City</string>
+    <string name="TemperatureValue">99</string>
+    <string name="FiveDayString">Five Day Forecast</string>
+    <string name="title_activity_five_day_view">fiveDayView</string>
 </resources>
