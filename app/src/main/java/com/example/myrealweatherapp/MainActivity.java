@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         temperature.setVisibility(View.GONE);
         queryButton = findViewById(R.id.queryButton);
         fiveDay = findViewById(R.id.fiveDayButton);
-        fiveDay.setVisibility(View.GONE);
+        fiveDay.setVisibility(View.VISIBLE);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         //USED FOR GPS
@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         queryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //does the api call
                 new RetrieveFeedTask().execute();
             }
         });

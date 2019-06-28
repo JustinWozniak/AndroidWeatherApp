@@ -9,29 +9,33 @@
 
 
     <TextView
-        android:id="@+id/dayText"
+        android:id="@+id/day1Text"
         android:layout_width="283dp"
         android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:gravity="center"
         android:text="@string/day_text"
         android:textColor="@color/textBlue"
         android:textSize="50sp"
         app:fontFamily="cursive"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/description1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fiveDayText" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/day1Icon"
+        android:layout_width="184dp"
+        android:layout_height="184dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/clouded" />
+        app:layout_constraintTop_toBottomOf="@+id/description1"
+        app:srcCompat="@drawable/accu13s" />
 
     <TextView
         android:id="@+id/fiveDayText"
@@ -42,7 +46,7 @@
         android:textColor="@color/textBlue"
         android:textSize="50sp"
         app:fontFamily="cursive"
-        app:layout_constraintBottom_toTopOf="@+id/dayText"
+        app:layout_constraintBottom_toTopOf="@+id/day1Text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +62,10 @@
         android:textSize="50sp"
         app:fontFamily="sans-serif-smallcaps"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
-        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintEnd_toStartOf="@+id/highTemp1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/day1Icon" />
 
     <TextView
         android:id="@+id/textView7"
@@ -72,27 +76,27 @@
         android:textSize="50sp"
         app:fontFamily="sans-serif-smallcaps"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintEnd_toStartOf="@+id/lowTemp1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/highTemp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Pretend_hi"
         android:textColor="@color/textBlue"
         android:textSize="50sp"
         app:fontFamily="sans-serif-smallcaps"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintBottom_toTopOf="@+id/lowTemp1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/day1Icon" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/lowTemp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Pretend_low"
@@ -103,5 +107,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/highTemp1" />
+
+    <TextView
+        android:id="@+id/description1"
+        android:layout_width="354dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/Pretend_description"
+        android:textColor="@color/textBlue"
+        android:textSize="25sp"
+        app:fontFamily="sans-serif-smallcaps"
+        app:layout_constraintBottom_toTopOf="@+id/day1Icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/day1Text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

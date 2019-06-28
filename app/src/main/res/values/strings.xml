@@ -15,4 +15,5 @@
     <string name="low_text">Low: </string>
     <string name="Pretend_hi">85° </string>
     <string name="Pretend_low">-35° </string>
+    <string name="Pretend_description">Description </string>
 </resources>
