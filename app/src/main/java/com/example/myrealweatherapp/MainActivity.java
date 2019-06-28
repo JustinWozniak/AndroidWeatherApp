@@ -15,10 +15,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,23 +44,22 @@ public class MainActivity extends AppCompatActivity {
     static final String API_URL = "https://api.openweathermap.org/data/2.5/forecast?q=kitchener,Canada&appid=";
     String query = "";
     String finalUrl = "";
-
     LocationManager locationManager;
     LocationListener locationListener;
 
 
-    /** Called when the user taps the Five-day forecast button */
+    /**
+     * Called when the user taps the Five-day forecast button
+     */
 
 
-    public void fiveDayView(View view) {
-        Intent intent = new Intent(this, fiveDayView.class);
+
+    public void fiveDay(View view) {
+        Intent intent = new Intent(this, fiveday.class);
         startActivity(intent);
     }
 
-
-
-
-    @Override
+    @Override//ALL THIS CODE IS USED FOR GPS
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -80,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        temperatureText = findViewById(R.id.locationText);
+
         temperature = findViewById(R.id.temperatureTextView);
         mainIcon = findViewById(R.id.imageView);
         cityNameText = findViewById(R.id.locationString);
@@ -93,35 +90,38 @@ public class MainActivity extends AppCompatActivity {
         fiveDay = findViewById(R.id.fiveDayButton);
         fiveDay.setVisibility(View.GONE);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        //USED FOR GPS
         locationListener = new LocationListener() {
 
-            @Override
+            @Override//USED FOR GPS
             public void onLocationChanged(Location location) {
-                Log.e("Location working? ", location.toString());
+//                Log.e("Location working? ", location.toString());
 
             }
 
-            @Override
+            @Override//USED FOR GPS
             public void onStatusChanged(String s, int i, Bundle bundle) {
 
             }
 
-            @Override
+            @Override//USED FOR GPS
             public void onProviderEnabled(String s) {
 
             }
 
-            @Override
+            @Override//USED FOR GPS
             public void onProviderDisabled(String s) {
 
             }
         };
-
+        //USED FOR GPS
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
+
 
         queryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 new RetrieveFeedTask().execute();
             }
         });
+
     }
 
     class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
@@ -141,11 +142,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected String doInBackground(Void... urls) {
-            String email = "https://api.openweathermap.org/data/2.5/weather?q=kitchener,Canada&appid=37c0fb022a528bcc6afc1295558f1efb&units=metric"; // emailText.getText().toString();
-            // Do some validation here
+            String weatherapi = "https://api.openweathermap.org/data/2.5/weather?q=kitchener,Canada&appid=37c0fb022a528bcc6afc1295558f1efb&units=metric"; // emailText.getText().toString();
+
 
             try {
-                URL url = new URL(email);
+                URL url = new URL(weatherapi);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     urlConnection.disconnect();
                 }
             } catch (Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
+//                Log.e("ERROR", e.getMessage(), e);
                 return null;
             }
         }
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 response = "THERE WAS AN ERROR";
             }
 
-            Log.i("Response-->", response);
+//            Log.i("Response-->", response);
 //            temperatureText.setText(response);    USED TO SHOW THE RETURNED JSON DATA
             try {
                 JSONTokener jsonTokener = new JSONTokener(response);
@@ -186,13 +187,8 @@ public class MainActivity extends AppCompatActivity {
                 String iconString = weatherObject.getString("icon");
                 String weatherDescription = weatherObject.getString("main");
 
-//              Log.i("WORKED!!!----->", Double.toString(temp));
-                Log.e("WORKED!!!--Name>", weatherDescription);
-//              Log.i("WeatherWORKED!!!----->", weatherArray.toString());
-//              Log.i("WeatherObjectWORKED!!>", weatherObject.toString());
-//              Log.i("WeatherstringWORKED!!>", iconString);
                 temperature.setText(Double.toString(temp));
-                temperature.setText(Double.toString(temp) + "°");
+                temperature.setText((temp) + "°");
                 cityNameText.setVisibility(View.VISIBLE);
                 cityNameText.setText(cityName);
                 queryButton.setVisibility(View.GONE);
@@ -206,8 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String weatherType = iconString;
 //                weatherType = "Smoke"; THIS LINE IS USED TO TEST SWITCH CASE
-//                weatherTypeName.setText(weatherDescription);
-                Log.e("WORKED?--Name>", weatherType);
+//                Log.e("WORKED?--Name>", weatherType);
                 switch (weatherType) {
                     case "02d":
                         mainIcon.setImageResource(R.drawable.icon_02d);
@@ -266,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 String errorMessage = e.toString();
-                Log.e("ERROR----->", errorMessage);
+//                Log.e("ERROR----->", errorMessage);
 //
             }
         }

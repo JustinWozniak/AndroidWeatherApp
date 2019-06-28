@@ -3,10 +3,16 @@
     <string name="city_search_string">Input a city to search for....</string>
     <string name="search_button_string">City Search</string>
     <string name="current_temp_in_string">Currently in:</string>
-    <string name="kitchener">Kitchener</string>
+    <string name="Current">Current</string>
     <string name="weatherIcon">Weather Icon</string>
     <string name="City">City</string>
     <string name="TemperatureValue">99</string>
     <string name="FiveDayString">Five Day Forecast</string>
     <string name="title_activity_five_day_view">fiveDayView</string>
+    <string name="day_text">Thursday</string>
+    <string name="five_day_text">Five Day Forecast</string>
+    <string name="hi_text">Hi: </string>
+    <string name="low_text">Low: </string>
+    <string name="Pretend_hi">85° </string>
+    <string name="Pretend_low">-35° </string>
 </resources>
