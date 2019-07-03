@@ -36,11 +36,13 @@ public class fiveday extends AppCompatActivity {
     ImageView dayTwoIcon;
     TextView descriptiontwo;
 
+
     TextView dayThreeHighTemp;
     TextView dayThreeLowTemp;
     TextView dayThreeText;
     ImageView dayThreeIcon;
     TextView descriptionthree;
+
 
     TextView dayFourHighTemp;
     TextView dayFourLowTemp;
@@ -55,10 +57,11 @@ public class fiveday extends AppCompatActivity {
     TextView descriptionfive;
 
     //The following is used to convert days to text formatted day names
-    String convertDay(String oldDate) {
+    private String convertDay(String oldDate) {
 
         String[] day1parts = oldDate.split("T");
         String day1part1 = day1parts[0];
+        Log.e("part1: ", day1part1);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
         Date date2 = null;
         try {
@@ -68,9 +71,13 @@ public class fiveday extends AppCompatActivity {
         }
         String dayOneStringDate = date2.toString();
         String[] parts2 = dayOneStringDate.split(" ");
-        String part4 = parts2[0];
-        return part4;
+        String dayName = parts2[0];
+        Log.e("dayofweek?: ", dayName);
+        return dayName;
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +96,7 @@ public class fiveday extends AppCompatActivity {
         dayTwoIcon = findViewById(R.id.day3Icon);
         descriptiontwo = findViewById(R.id.description2);
 
+
         dayThreeHighTemp = findViewById(R.id.highTemp3);
         dayThreeLowTemp = findViewById(R.id.lowTemp3);
         //the next two variables are offset by a day
@@ -96,12 +104,14 @@ public class fiveday extends AppCompatActivity {
         dayThreeIcon = findViewById(R.id.day4Icon);
         descriptionthree = findViewById(R.id.description3);
 
+
         dayFourHighTemp = findViewById(R.id.hightemp4);
         dayFourLowTemp = findViewById(R.id.lowTemp4);
         //the next two variables are offset by a day
         dayFourText = findViewById(R.id.day5Text);
         dayFourIcon = findViewById(R.id.day5icon);
         descriptionfour = findViewById(R.id.description4);
+
 
         dayFiveHighTemp = findViewById(R.id.highTemp5);
         dayFiveLowTemp = findViewById(R.id.lowTemp5);
@@ -114,15 +124,17 @@ public class fiveday extends AppCompatActivity {
         new RetrieveFeedTask().execute();
     }
 
+
     @SuppressLint("StaticFieldLeak")
     class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
         private Exception exception;
 
+
         @Override
         protected String doInBackground(Void... voids) {
             String accuWeatherApi = "\n" +
-                    "http://dataservice.accuweather.com/forecasts/v1/daily/5day/49564?apikey=p5eumBP6yILniKSREfzT6jWTKG9IBopF&metric=true";
+                    "http://dataservice.accuweather.com/forecasts/v1/daily/5day/49564?apikey=wP5GLRzcTr7X5zzJaxiKN3poepQ5cJQm&metric=true";
             try {
                 URL url = new URL(accuWeatherApi);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -159,11 +171,13 @@ public class fiveday extends AppCompatActivity {
                 //high temps starts here...
                 JSONObject TopObject = (JSONObject) jsonTokener.nextValue();
                 JSONArray day1DailyForecasts = TopObject.getJSONArray("DailyForecasts");
+
                 JSONObject day1FullDay = day1DailyForecasts.getJSONObject(0);
                 JSONObject day2FullDay = day1DailyForecasts.getJSONObject(1);
                 JSONObject day3FullDay =  day1DailyForecasts.getJSONObject(2);
                 JSONObject day4FullDay =  day1DailyForecasts.getJSONObject(3);
                 JSONObject day5FullDay =  day1DailyForecasts.getJSONObject(4);
+
 
                 //icon selection starts here....
                 JSONObject day1daytimeIcon =  day1FullDay.getJSONObject("Day");
@@ -171,7 +185,6 @@ public class fiveday extends AppCompatActivity {
                 JSONObject day3daytimeIcon = day3FullDay.getJSONObject("Day");
                 JSONObject day4daytimeIcon =  day4FullDay.getJSONObject("Day");
                 JSONObject day5daytimeIcon =  day5FullDay.getJSONObject("Day");
-
                 Integer day1iconInt = day1daytimeIcon.getInt("Icon");
                 Integer day2iconInt = day2daytimeIcon.getInt("Icon");
                 Integer day3iconInt = day3daytimeIcon.getInt("Icon");
@@ -303,17 +316,14 @@ public class fiveday extends AppCompatActivity {
                 }
                 //icon ends here
 
+
                 //day headline starts here..
-                String day1headline = day1daytimeIcon.getString("IconPhrase");
-                String day2headline = day2daytimeIcon.getString("IconPhrase");
-                String day3headline = day3daytimeIcon.getString("IconPhrase");
-                String day4headline = day4daytimeIcon.getString("IconPhrase");
-                String day5headline = day5daytimeIcon.getString("IconPhrase");
-                descriptionone.setText(day1headline);
-                descriptiontwo.setText(day2headline);
-                descriptionthree.setText(day3headline);
-                descriptionfour.setText(day4headline);
-                descriptionfive.setText(day5headline);
+
+                descriptionone.setText(day1daytimeIcon.getString("IconPhrase"));
+                descriptiontwo.setText(day2daytimeIcon.getString("IconPhrase"));
+                descriptionthree.setText(day3daytimeIcon.getString("IconPhrase"));
+                descriptionfour.setText(day4daytimeIcon.getString("IconPhrase"));
+                descriptionfive.setText(day5daytimeIcon.getString("IconPhrase"));
 
                 JSONObject day1HighString =  day1FullDay.getJSONObject("Temperature");
                 JSONObject day2HighString =  day2FullDay.getJSONObject("Temperature");
@@ -331,7 +341,7 @@ public class fiveday extends AppCompatActivity {
                 Double day2HighTempIncelcius =  day2highTemp.getDouble("Value");
                 Double day3HighTempIncelcius =  day3highTemp.getDouble("Value");
                 Double day4HighTempIncelcius =  day4highTemp.getDouble("Value");
-                Double day5HighTempIncelcius =  day5highTemp.getDouble("Value");
+                Double day5HighTempIncelcius = day5highTemp.getDouble("Value");
 
                 dayOneHighTemp.setText((day1HighTempIncelcius) + "°");
                 dayTwoHighTemp.setText((day2HighTempIncelcius) + "°");
@@ -374,20 +384,19 @@ public class fiveday extends AppCompatActivity {
                 String day5Date = day5FullDay.getString("Date");
 
                 //call convertday function to change dateformat to nicer string format
-                String finalDateString1 = convertDay(day1Date);
-                String finalDateString2 = convertDay(day2Date);
-                String finalDateString3 = convertDay(day3Date);
-                String finalDateString4 = convertDay(day4Date);
-                String finalDateString5 = convertDay(day5Date);
-                dayOneText.setText(finalDateString1);
-                dayTwoText.setText(finalDateString2);
-                dayThreeText.setText(finalDateString3);
-                dayFourText.setText(finalDateString4);
-                dayFiveText.setText(finalDateString5);
+
+                dayOneText.setText(convertDay(day1Date));
+                dayTwoText.setText(convertDay(day2Date));
+                dayThreeText.setText(convertDay(day3Date));
+                dayFourText.setText(convertDay(day4Date));
+                dayFiveText.setText(convertDay(day5Date));
 
             } catch (JSONException e) {
                 Log.e("ErrorMessage=", e.toString());
+
             }
+
+
         }
     }
 }

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView temperature;
     ImageView mainIcon;
+    ImageView logo;
     TextView cityNameText;
     Button queryButton;
     Button fiveDay;
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         temperature = findViewById(R.id.temperatureTextView);
         mainIcon = findViewById(R.id.imageView);
+        logo = findViewById(R.id.logoimageview);
+        logo.setVisibility(View.VISIBLE);
         cityNameText = findViewById(R.id.locationString);
         currentCity = findViewById(R.id.current);
         mainIcon.setVisibility(View.GONE);
@@ -184,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 temperature.setVisibility(View.VISIBLE);
                 currentCity.setVisibility(View.VISIBLE);
                 mainIcon.setVisibility(View.VISIBLE);
-
+                logo.setVisibility(View.GONE);
 
 //
 
