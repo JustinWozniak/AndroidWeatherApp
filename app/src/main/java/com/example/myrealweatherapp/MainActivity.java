@@ -32,27 +32,14 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView temperatureText;
     TextView temperature;
     ImageView mainIcon;
     TextView cityNameText;
     Button queryButton;
     Button fiveDay;
     TextView currentCity;
-    TextView weatherTypeName;
-    static final String API_KEY = "37c0fb022a528bcc6afc1295558f1efb&units=metric";
-    static final String API_URL = "https://api.openweathermap.org/data/2.5/forecast?q=kitchener,Canada&appid=";
-    String query = "";
-    String finalUrl = "";
     LocationManager locationManager;
     LocationListener locationListener;
-
-
-    /**
-     * Called when the user taps the Five-day forecast button
-     */
-
-
 
     public void fiveDay(View view) {
         Intent intent = new Intent(this, fiveday.class);
@@ -96,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override//USED FOR GPS
             public void onLocationChanged(Location location) {
-//                Log.e("Location working? ", location.toString());
+
 
             }
 
@@ -197,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 temperature.setVisibility(View.VISIBLE);
                 currentCity.setVisibility(View.VISIBLE);
                 mainIcon.setVisibility(View.VISIBLE);
-//              weatherTypeName.setVisibility(View.VISIBLE);
+
 
 //
 
@@ -263,7 +250,6 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 String errorMessage = e.toString();
 //                Log.e("ERROR----->", errorMessage);
-//
             }
         }
     }

@@ -12,7 +12,7 @@
     >
 
     <TextView
-        android:id="@+id/day1Text"
+        android:id="@+id/day2Text"
         android:layout_width="283dp"
         android:layout_height="56dp"
         android:gravity="center"
@@ -20,14 +20,14 @@
         android:textColor="@color/textBlue"
         android:textSize="50sp"
         app:fontFamily="cursive"
-        app:layout_constraintBottom_toTopOf="@+id/day1Icon"
+        app:layout_constraintBottom_toTopOf="@+id/day2Icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fiveDayText" />
 
     <ImageView
-        android:id="@+id/day1Icon"
+        android:id="@+id/day2Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +45,7 @@
         android:textColor="@color/textBlue"
         android:textSize="50sp"
         app:fontFamily="cursive"
-        app:layout_constraintBottom_toTopOf="@+id/day1Text"
+        app:layout_constraintBottom_toTopOf="@+id/day2Text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
         app:layout_constraintEnd_toStartOf="@+id/highTemp1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day1Icon" />
+        app:layout_constraintTop_toBottomOf="@+id/day2Icon" />
 
     <TextView
         android:id="@+id/textView7"
@@ -92,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/day1Icon" />
+        app:layout_constraintTop_toBottomOf="@+id/day2Icon" />
 
     <TextView
         android:id="@+id/lowTemp1"

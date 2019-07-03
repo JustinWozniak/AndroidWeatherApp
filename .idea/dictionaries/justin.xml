@@ -2,10 +2,21 @@
   <dictionary name="justin">
     <words>
       <w>accu</w>
+      <w>convertday</w>
       <w>dailyforecast</w>
+      <w>dateformat</w>
+      <w>descriptionfive</w>
+      <w>descriptionfour</w>
+      <w>descriptionone</w>
+      <w>descriptionthree</w>
+      <w>descriptiontwo</w>
+      <w>erroronpostexcecute</w>
       <w>fiveday</w>
+      <w>incelcius</w>
       <w>justins</w>
+      <w>oneconverted</w>
       <w>responce</w>
+      <w>weatherapi</w>
     </words>
   </dictionary>
 </component>
