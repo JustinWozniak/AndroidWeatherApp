@@ -3,6 +3,7 @@ package com.example.myrealweatherapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,7 +73,29 @@ public class fiveday extends AppCompatActivity {
         String dayOneStringDate = date2.toString();
         String[] parts2 = dayOneStringDate.split(" ");
         String dayName = parts2[0];
-        Log.e("dayofweek?: ", dayName);
+
+        //LEFT OFF HERE THURSDAY.....
+//        Log.e("IM HERE",dayName);
+//        Log.e("dayofweek?: ", dayName);
+//        String finalDayName = "";
+//        if(dayName == "Thu")    {
+//
+//            finalDayName = dayName + "rsday";
+//        }   else if (dayName == "Fri")  {
+//            finalDayName = dayName + "day";
+//        }    else if (dayName == "Sat")  {
+//            finalDayName = dayName + "urday";
+//        }    else if (dayName == "Sun")  {
+//            finalDayName = dayName + "day";
+//        } else if (dayName == "Mon")  {
+//            finalDayName = dayName + "day";
+//        } else if (dayName == "Tue")  {
+//            finalDayName = dayName + "sday";
+//        } else if (dayName == "Wed")  {
+//            finalDayName = dayName + "nesday";
+//        }
+//
+//        Log.e("Dayname=",finalDayName);
         return dayName;
     }
 
@@ -156,6 +179,17 @@ public class fiveday extends AppCompatActivity {
             }
         }
 
+
+        private int convert_AccuIconCode_to_Id(int iconCode) {
+            // The following avoids a giant Switch/Case or If/Else-If statement!!!
+            String codeString = String.format("%02d", iconCode);
+            String iconResource = "accu" + codeString + "s";
+            Resources r = getResources();
+            int drawableId = r.getIdentifier(iconResource, "drawable", "com.example.myrealweatherapp");
+            return drawableId;
+        }
+
+
         @SuppressLint("SetTextI18n")
         protected void onPostExecute(String response) {
             if (response == null) {
@@ -191,129 +225,13 @@ public class fiveday extends AppCompatActivity {
                 Integer day4iconInt = day4daytimeIcon.getInt("Icon");
                 Integer day5iconInt = day5daytimeIcon.getInt("Icon");
                 String dayOneconvertedIconName = day2iconInt.toString();
+                dayOneIcon.setImageResource(convert_AccuIconCode_to_Id(day1iconInt));
+                dayTwoIcon.setImageResource(convert_AccuIconCode_to_Id(day2iconInt));
+                dayThreeIcon.setImageResource(convert_AccuIconCode_to_Id(day3iconInt));
+                dayFourIcon.setImageResource(convert_AccuIconCode_to_Id(day4iconInt));
+                dayFiveIcon.setImageResource(convert_AccuIconCode_to_Id(day5iconInt));
 
-//                weatherType = "Smoke"; THIS LINE IS USED TO TEST SWITCH CASE
-//                Log.e("WORKED?--Name>", weatherType);
-//                weatherType = "24";
-                switch (dayOneconvertedIconName) {
-                    case "1":
-                        dayOneIcon.setImageResource(R.drawable.accu01s);
-                        break;
-                    case "2":
-                        dayOneIcon.setImageResource(R.drawable.accu02s);
-                        break;
-                    case "3":
-                        dayOneIcon.setImageResource(R.drawable.accu03s);
-                        break;
-                    case "4":
-                        dayOneIcon.setImageResource(R.drawable.accu04s);
-                        break;
-                    case "5":
-                        dayOneIcon.setImageResource(R.drawable.accu05s);
-                        break;
-                    case "6":
-                        dayOneIcon.setImageResource(R.drawable.accu06s);
-                        break;
-                    case "7":
-                        dayOneIcon.setImageResource(R.drawable.accu07s);
-                        break;
-                    case "8":
-                        dayOneIcon.setImageResource(R.drawable.accu08s);
-                        break;
-                    case "11":
-                        dayOneIcon.setImageResource(R.drawable.accu11s);
-                        break;
-                    case "12":
-                        dayOneIcon.setImageResource(R.drawable.accu12s);
-                        break;
-                    case "13":
-                        dayOneIcon.setImageResource(R.drawable.accu13s);
-                        break;
-                    case "14":
-                        dayOneIcon.setImageResource(R.drawable.accu14s);
-                        break;
-                    case "15":
-                        dayOneIcon.setImageResource(R.drawable.accu15s);
-                        break;
-                    case "16":
-                        dayOneIcon.setImageResource(R.drawable.accu16s);
-                        break;
-                    case "17":
-                        dayOneIcon.setImageResource(R.drawable.accu17s);
-                        break;
-                    case "18":
-                        dayOneIcon.setImageResource(R.drawable.accu18s);
-                        break;
-                    case "19":
-                        dayOneIcon.setImageResource(R.drawable.accu19s);
-                        break;
-                    case "20":
-                        dayOneIcon.setImageResource(R.drawable.accu20s);
-                        break;
-                    case "21":
-                        dayOneIcon.setImageResource(R.drawable.accu21s);
-                        break;
-                    case "22":
-                        dayOneIcon.setImageResource(R.drawable.accu22s);
-                        break;
-                    case "24":
-                        dayOneIcon.setImageResource(R.drawable.accu24s);
-                        break;
-                    case "25":
-                        dayOneIcon.setImageResource(R.drawable.accu25s);
-                        break;
-                    case "26":
-                        dayOneIcon.setImageResource(R.drawable.accu26s);
-                        break;
-                    case "29":
-                        dayOneIcon.setImageResource(R.drawable.accu29s);
-                        break;
-                    case "30":
-                        dayOneIcon.setImageResource(R.drawable.accu30s);
-                        break;
-                    case "31":
-                        dayOneIcon.setImageResource(R.drawable.accu31s);
-                        break;
-                    case "32":
-                        dayOneIcon.setImageResource(R.drawable.accu32s);
-                        break;
-                    case "33":
-                        dayOneIcon.setImageResource(R.drawable.accu33s);
-                        break;
-                    case "34":
-                        dayOneIcon.setImageResource(R.drawable.accu35s);
-                        break;
-                    case "36":
-                        dayOneIcon.setImageResource(R.drawable.accu36s);
-                        break;
-                    case "37":
-                        dayOneIcon.setImageResource(R.drawable.accu37s);
-                        break;
-                    case "38":
-                        dayOneIcon.setImageResource(R.drawable.accu38s);
-                        break;
-                    case "39":
-                        dayOneIcon.setImageResource(R.drawable.accu39s);
-                        break;
-                    case "40":
-                        dayOneIcon.setImageResource(R.drawable.accu40s);
-                        break;
-                    case "41":
-                        dayOneIcon.setImageResource(R.drawable.accu41s);
-                        break;
-                    case "42":
-                        dayOneIcon.setImageResource(R.drawable.accu42s);
-                        break;
-                    case "43":
-                        dayOneIcon.setImageResource(R.drawable.accu43s);
-                        break;
-                    case "44":
-                        dayOneIcon.setImageResource(R.drawable.accu44s);
-                        break;
-                    default:
-                        dayOneIcon.setImageResource(R.drawable.alert);
-                        break;
-                }
+//
                 //icon ends here
 
 
