@@ -15,8 +15,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +31,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,15 +41,38 @@ public class MainActivity extends AppCompatActivity {
     ImageView mainIcon;
     ImageView logo;
     TextView cityNameText;
+    TextView humidityView;
+    TextView humidityValueView;
     Button queryButton;
     Button fiveDay;
     TextView currentCity;
+    TextView smallDescription;
     LocationManager locationManager;
     LocationListener locationListener;
+    TextView sunriseText;
+    TextView sunsetView;
+    TextView sunsetValue;
+    TextView sunriseTextValue;
+
+
+
+
+    public void locationSearch(View view) {
+        Intent intent = new Intent(this, locationSearch.class);
+        startActivity(intent);
+    }
 
     public void fiveDay(View view) {
         Intent intent = new Intent(this, fiveday.class);
         startActivity(intent);
+    }
+
+    private String convert_epochTime_to_dayOfWeek(long epochDate) {
+        Date date = new Date(epochDate * 1000);
+        SimpleDateFormat simpleDateformat = new SimpleDateFormat("HH:mm:ssZ"); // the day of the week spelled out completely
+        simpleDateformat.setTimeZone(TimeZone.getDefault());
+        String dayName = simpleDateformat.format(date);
+        return dayName;
     }
 
     @Override//ALL THIS CODE IS USED FOR GPS
@@ -66,10 +94,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sunsetValue = findViewById(R.id.sunsetValue);
+        sunsetValue.setVisibility(View.GONE);
+        sunsetView = findViewById(R.id.sunsetView);
+        sunsetView.setVisibility(View.GONE);
+        sunriseTextValue = findViewById(R.id.sunriseTextValue);
+        sunriseTextValue.setVisibility(View.GONE);
+        sunriseText = findViewById(R.id.sunriseText);
+        sunriseText.setVisibility(View.GONE);
+        humidityValueView = findViewById(R.id.humidityValue);
+        humidityValueView.setVisibility(View.GONE);
         temperature = findViewById(R.id.temperatureTextView);
         mainIcon = findViewById(R.id.imageView);
-        logo = findViewById(R.id.logoimageview);
-        logo.setVisibility(View.VISIBLE);
+//        logo = findViewById(R.id.logoimageview);
+        humidityView = findViewById(R.id.humidityText);
+        humidityView.setVisibility(View.GONE);
+//        logo.setVisibility(View.VISIBLE);
         cityNameText = findViewById(R.id.locationString);
         currentCity = findViewById(R.id.current);
         mainIcon.setVisibility(View.GONE);
@@ -79,7 +119,11 @@ public class MainActivity extends AppCompatActivity {
         queryButton = findViewById(R.id.queryButton);
         fiveDay = findViewById(R.id.fiveDayButton);
         fiveDay.setVisibility(View.VISIBLE);
+        smallDescription = findViewById(R.id.smallWeatherView);
+        smallDescription.setVisibility(View.GONE);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+
 
         //USED FOR GPS
         locationListener = new LocationListener() {
@@ -105,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
+
         //USED FOR GPS
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -171,26 +217,58 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject mainObject = topObject.getJSONObject("main");
                 double temp = mainObject.getDouble("temp");
+                String humidityValue = mainObject.getString("humidity");
+                Log.e("Humidity",humidityValue);
                 String cityName = topObject.getString("name");
 
                 JSONArray weatherArray = topObject.getJSONArray("weather");
                 JSONObject weatherObject = weatherArray.getJSONObject(0);
                 String iconString = weatherObject.getString("icon");
+                String smallWeatherDescription = weatherObject.getString("description");
+                Log.e("Weatherdescription: ", smallWeatherDescription);
                 String weatherDescription = weatherObject.getString("main");
+
+                JSONObject systemObject= topObject.getJSONObject("sys");
+                Log.e("SYSTEMOBJECT:",systemObject.toString());
+                String sunriseTime = systemObject.getString("sunrise");
+                String sunsetTime = systemObject.getString("sunset");
+                Log.e("sunriseTime:",sunriseTime);
+                Log.e("sunsetTime:",sunsetTime);
+                Long sunrisenumnum = Long.parseLong(sunriseTime);
+                Long sunsetnum = Long.parseLong(sunsetTime);
+                String convertedSunriseTime = convert_epochTime_to_dayOfWeek(sunrisenumnum);
+                String convertedSunSetTime = convert_epochTime_to_dayOfWeek(sunsetnum);
+                Log.e("ConvertedTimeRise:",convertedSunriseTime);
+                Log.e("ConvertedTimeSet:",convertedSunSetTime);
+
+
+
+
+
+
+
 
                 temperature.setText(Double.toString(temp));
                 temperature.setText((temp) + "°");
+                sunsetValue.setVisibility(View.VISIBLE);
+                sunsetView.setVisibility(View.VISIBLE);
+                sunriseTextValue.setVisibility(View.VISIBLE);
+                sunriseText.setVisibility(View.VISIBLE);
+                smallDescription.setVisibility(View.VISIBLE);
+                smallDescription.setText(smallWeatherDescription);
                 cityNameText.setVisibility(View.VISIBLE);
+                humidityView.setVisibility(View.VISIBLE);
                 cityNameText.setText(cityName);
                 queryButton.setVisibility(View.GONE);
                 fiveDay.setVisibility(View.VISIBLE);
                 temperature.setVisibility(View.VISIBLE);
                 currentCity.setVisibility(View.VISIBLE);
                 mainIcon.setVisibility(View.VISIBLE);
-                logo.setVisibility(View.GONE);
-
-//
-
+//                logo.setVisibility(View.GONE);
+                humidityValueView.setVisibility(View.VISIBLE);
+                sunriseTextValue.setText(convertedSunriseTime);
+                sunsetValue.setText(convertedSunSetTime);
+                humidityValueView.setText(humidityValue);
                 String weatherType = iconString;
 //                weatherType = "Smoke"; THIS LINE IS USED TO TEST SWITCH CASE
 //                Log.e("WORKED?--Name>", weatherType);

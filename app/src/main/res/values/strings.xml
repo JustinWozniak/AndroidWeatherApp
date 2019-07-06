@@ -16,4 +16,8 @@
     <string name="Pretend_hi">85° </string>
     <string name="Pretend_low">-35° </string>
     <string name="Pretend_description">Description </string>
+    <string name="humidity">Humidity:  </string>
+    <string name="sunrise">Sunrise: </string>
+    <string name="sunset">Sunset: </string>
+    <string name="Search">Search For A Location </string>
 </resources>
