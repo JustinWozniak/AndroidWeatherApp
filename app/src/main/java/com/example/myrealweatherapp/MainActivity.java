@@ -1,24 +1,17 @@
 package com.example.myrealweatherapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,14 +40,10 @@ public class MainActivity extends AppCompatActivity {
     Button fiveDay;
     TextView currentCity;
     TextView smallDescription;
-    LocationManager locationManager;
-    LocationListener locationListener;
     TextView sunriseText;
     TextView sunsetView;
     TextView sunsetValue;
     TextView sunriseTextValue;
-
-
 
 
     public void locationSearch(View view) {
@@ -66,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, fiveday.class);
         startActivity(intent);
     }
+    public void gpsSearch(View view) {
+        Intent intent = new Intent(this, gpsSearch.class);
+        startActivity(intent);
+    }
 
     private String convert_epochTime_to_dayOfWeek(long epochDate) {
         Date date = new Date(epochDate * 1000);
@@ -73,19 +66,6 @@ public class MainActivity extends AppCompatActivity {
         simpleDateformat.setTimeZone(TimeZone.getDefault());
         String dayName = simpleDateformat.format(date);
         return dayName;
-    }
-
-    @Override//ALL THIS CODE IS USED FOR GPS
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-            }
-        }
     }
 
 
@@ -121,42 +101,6 @@ public class MainActivity extends AppCompatActivity {
         fiveDay.setVisibility(View.VISIBLE);
         smallDescription = findViewById(R.id.smallWeatherView);
         smallDescription.setVisibility(View.GONE);
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-
-
-        //USED FOR GPS
-        locationListener = new LocationListener() {
-
-            @Override//USED FOR GPS
-            public void onLocationChanged(Location location) {
-
-
-            }
-
-            @Override//USED FOR GPS
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override//USED FOR GPS
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override//USED FOR GPS
-            public void onProviderDisabled(String s) {
-
-            }
-        };
-
-
-        //USED FOR GPS
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        }
 
 
         queryButton.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject mainObject = topObject.getJSONObject("main");
                 double temp = mainObject.getDouble("temp");
                 String humidityValue = mainObject.getString("humidity");
-                Log.e("Humidity",humidityValue);
+                Log.e("Humidity", humidityValue);
                 String cityName = topObject.getString("name");
 
                 JSONArray weatherArray = topObject.getJSONArray("weather");
@@ -228,24 +172,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Weatherdescription: ", smallWeatherDescription);
                 String weatherDescription = weatherObject.getString("main");
 
-                JSONObject systemObject= topObject.getJSONObject("sys");
-                Log.e("SYSTEMOBJECT:",systemObject.toString());
+                JSONObject systemObject = topObject.getJSONObject("sys");
+                Log.e("SYSTEMOBJECT:", systemObject.toString());
                 String sunriseTime = systemObject.getString("sunrise");
                 String sunsetTime = systemObject.getString("sunset");
-                Log.e("sunriseTime:",sunriseTime);
-                Log.e("sunsetTime:",sunsetTime);
+                Log.e("sunriseTime:", sunriseTime);
+                Log.e("sunsetTime:", sunsetTime);
                 Long sunrisenumnum = Long.parseLong(sunriseTime);
                 Long sunsetnum = Long.parseLong(sunsetTime);
                 String convertedSunriseTime = convert_epochTime_to_dayOfWeek(sunrisenumnum);
                 String convertedSunSetTime = convert_epochTime_to_dayOfWeek(sunsetnum);
-                Log.e("ConvertedTimeRise:",convertedSunriseTime);
-                Log.e("ConvertedTimeSet:",convertedSunSetTime);
-
-
-
-
-
-
+                Log.e("ConvertedTimeRise:", convertedSunriseTime);
+                Log.e("ConvertedTimeSet:", convertedSunSetTime);
 
 
                 temperature.setText(Double.toString(temp));

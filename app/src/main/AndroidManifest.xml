@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".locationSearch"></activity>
+        <activity android:name=".gpsSearch"></activity>
+        <activity android:name=".locationSearch" />
         <activity android:name=".fiveday" />
         <activity android:name=".MainActivity">
             <intent-filter>

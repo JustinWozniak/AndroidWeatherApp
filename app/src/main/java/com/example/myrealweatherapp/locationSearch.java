@@ -3,6 +3,7 @@ package com.example.myrealweatherapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,11 +48,11 @@ public class locationSearch extends AppCompatActivity {
             mgr.hideSoftInputFromWindow(editText.getWindowToken(), 0);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Could not find weather:",e.toString());
+            Log.e("Could not find weather:", e.toString());
         }
     }
 
-    public class DownloadTask extends AsyncTask<String,Void,String> {
+    public class DownloadTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... urls) {
@@ -78,10 +79,20 @@ public class locationSearch extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
 
-                Log.e("Could not find weather",e.toString());
+                Log.e("Could not find weather", e.toString());
 
                 return null;
             }
+        }
+
+
+        private int convert_AccuIconCode_to_Id(int iconCode) {
+            // The following avoids a giant Switch/Case or If/Else-If statement!!!
+            String codeString = String.format("%02d", iconCode);
+            String iconResource = "accu" + codeString + "s";
+            Resources r = getResources();
+            int drawableId = r.getIdentifier(iconResource, "drawable", "com.example.myrealweatherapp");
+            return drawableId;
         }
 
         @Override
@@ -92,18 +103,23 @@ public class locationSearch extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(s);
 
                 String weatherInfo = jsonObject.getString("weather");
-
+                String mainWeatherInfo = jsonObject.getString("main");
                 Log.i("Weather content", weatherInfo);
 
                 JSONArray arr = new JSONArray(weatherInfo);
 
                 String message = "";
 
-                for (int i=0; i < arr.length(); i++) {
+                for (int i = 0; i < arr.length(); i++) {
                     JSONObject jsonPart = arr.getJSONObject(i);
 
                     String main = jsonPart.getString("main");
                     String description = jsonPart.getString("description");
+
+
+                    String iconString = jsonPart.getString("icon");
+                    Log.e("IconCode is:", iconString);
+
 
                     if (!main.equals("") && !description.equals("")) {
                         message += main + ": " + description + "\r\n";
@@ -118,10 +134,11 @@ public class locationSearch extends AppCompatActivity {
 
             } catch (Exception e) {
 
-                Log.e("Could not find weather:",e.toString());
+                Log.e("Could not find weather:", e.toString());
 
                 e.printStackTrace();
             }
+
 
         }
     }

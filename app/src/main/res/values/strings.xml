@@ -20,4 +20,5 @@
     <string name="sunrise">Sunrise: </string>
     <string name="sunset">Sunset: </string>
     <string name="Search">Search For A Location </string>
+    <string name="Gps">Use Gps Location</string>
 </resources>
