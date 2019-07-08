@@ -21,4 +21,8 @@
     <string name="sunset">Sunset: </string>
     <string name="Search">Search For A Location </string>
     <string name="Gps">Use Gps Location</string>
+    <string name="Location">Your current Location: </string>
+    <string name="Latitude">Latitude: </string>
+    <string name="Longitude">Longitude: </string>
+    <string name="MESSAGE">See logcat for Gps location....Ran out of time </string>
 </resources>

@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     TextView sunsetView;
     TextView sunsetValue;
     TextView sunriseTextValue;
+    ImageView mainLogoImageView;
 
 
     public void locationSearch(View view) {
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, fiveday.class);
         startActivity(intent);
     }
+
     public void gpsSearch(View view) {
         Intent intent = new Intent(this, gpsSearch.class);
         startActivity(intent);
@@ -73,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mainLogoImageView = findViewById(R.id.logoImageView);
+        mainLogoImageView.setVisibility(View.VISIBLE);
         sunsetValue = findViewById(R.id.sunsetValue);
         sunsetValue.setVisibility(View.GONE);
         sunsetView = findViewById(R.id.sunsetView);
@@ -207,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 sunriseTextValue.setText(convertedSunriseTime);
                 sunsetValue.setText(convertedSunSetTime);
                 humidityValueView.setText(humidityValue);
+                mainLogoImageView.setVisibility(View.GONE);
                 String weatherType = iconString;
 //                weatherType = "Smoke"; THIS LINE IS USED TO TEST SWITCH CASE
 //                Log.e("WORKED?--Name>", weatherType);
