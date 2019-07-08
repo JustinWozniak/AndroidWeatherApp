@@ -196,9 +196,9 @@ public class fiveday extends AppCompatActivity {
                 response = "THERE WAS AN ERRORONPOSTEXCECUTE";
             }
 
-            Log.e("ResponseACCU->", response);
+            Log.i("ResponseACCU->", response);
             //            temperatureText.setText(response);
-            Log.e("responce-->", response);
+            Log.i("responce-->", response);
             JSONTokener jsonTokener = new JSONTokener(response);
             try {
 
@@ -224,19 +224,14 @@ public class fiveday extends AppCompatActivity {
                 Integer day3iconInt = day3daytimeIcon.getInt("Icon");
                 Integer day4iconInt = day4daytimeIcon.getInt("Icon");
                 Integer day5iconInt = day5daytimeIcon.getInt("Icon");
-                String dayOneconvertedIconName = day2iconInt.toString();
                 dayOneIcon.setImageResource(convert_AccuIconCode_to_Id(day1iconInt));
                 dayTwoIcon.setImageResource(convert_AccuIconCode_to_Id(day2iconInt));
                 dayThreeIcon.setImageResource(convert_AccuIconCode_to_Id(day3iconInt));
                 dayFourIcon.setImageResource(convert_AccuIconCode_to_Id(day4iconInt));
                 dayFiveIcon.setImageResource(convert_AccuIconCode_to_Id(day5iconInt));
-
-//
                 //icon ends here
 
-
                 //day headline starts here..
-
                 descriptionone.setText(day1daytimeIcon.getString("IconPhrase"));
                 descriptiontwo.setText(day2daytimeIcon.getString("IconPhrase"));
                 descriptionthree.setText(day3daytimeIcon.getString("IconPhrase"));
@@ -301,7 +296,7 @@ public class fiveday extends AppCompatActivity {
                 String day4Date = day4FullDay.getString("Date");
                 String day5Date = day5FullDay.getString("Date");
 
-                //call convertday function to change dateformat to nicer string format
+                //call convertday function to change date format to nicer string format
 
                 dayOneText.setText(convertDay(day1Date));
                 dayTwoText.setText(convertDay(day2Date));

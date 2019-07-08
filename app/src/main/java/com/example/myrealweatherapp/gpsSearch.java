@@ -33,7 +33,7 @@ public class gpsSearch extends AppCompatActivity {
 
     LocationManager locationManager;
     LocationListener locationListener;
-    TextView seachView1;
+    TextView searchView1;
     TextView resultTextView;
     TextView locationTextTexView;
     TextView latitudeResultView;
@@ -101,14 +101,14 @@ public class gpsSearch extends AppCompatActivity {
     }            public void getGpsWeather(View view) {
         try {
             gpsSearch.DownloadTask task = new gpsSearch.DownloadTask();
-            String encodedCityName1 = URLEncoder.encode(seachView1.getText().toString(), "UTF-8");
+            String encodedCityName1 = URLEncoder.encode(searchView1.getText().toString(), "UTF-8");
 
             task.execute("https://api.openweathermap.org/data/2.5/weather?q=" + encodedCityName1 + "&appid=37c0fb022a528bcc6afc1295558f1efb&units=metric");
 
 
             //hides they keyboard when button is pushed
             InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            mgr.hideSoftInputFromWindow(seachView1.getWindowToken(), 0);
+            mgr.hideSoftInputFromWindow(searchView1.getWindowToken(), 0);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Could not find weather:", e.toString());

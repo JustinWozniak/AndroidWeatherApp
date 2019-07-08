@@ -109,7 +109,7 @@ public class locationSearch extends AppCompatActivity {
                 JSONArray arr = new JSONArray(weatherInfo);
 
                 String message = "";
-
+                //for loop that goes through results from api call....
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject jsonPart = arr.getJSONObject(i);
 
@@ -118,7 +118,7 @@ public class locationSearch extends AppCompatActivity {
 
 
                     String iconString = jsonPart.getString("icon");
-                    Log.e("IconCode is:", iconString);
+                    Log.i("IconCode is:", iconString);
 
 
                     if (!main.equals("") && !description.equals("")) {

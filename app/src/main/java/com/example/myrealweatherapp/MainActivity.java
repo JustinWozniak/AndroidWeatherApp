@@ -89,10 +89,8 @@ public class MainActivity extends AppCompatActivity {
         humidityValueView.setVisibility(View.GONE);
         temperature = findViewById(R.id.temperatureTextView);
         mainIcon = findViewById(R.id.imageView);
-//        logo = findViewById(R.id.logoimageview);
         humidityView = findViewById(R.id.humidityText);
         humidityView.setVisibility(View.GONE);
-//        logo.setVisibility(View.VISIBLE);
         cityNameText = findViewById(R.id.locationString);
         currentCity = findViewById(R.id.current);
         mainIcon.setVisibility(View.GONE);
@@ -165,28 +163,28 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject mainObject = topObject.getJSONObject("main");
                 double temp = mainObject.getDouble("temp");
                 String humidityValue = mainObject.getString("humidity");
-                Log.e("Humidity", humidityValue);
+                Log.i("Humidity", humidityValue);
                 String cityName = topObject.getString("name");
 
                 JSONArray weatherArray = topObject.getJSONArray("weather");
                 JSONObject weatherObject = weatherArray.getJSONObject(0);
                 String iconString = weatherObject.getString("icon");
                 String smallWeatherDescription = weatherObject.getString("description");
-                Log.e("Weatherdescription: ", smallWeatherDescription);
+                Log.i("Weatherdescription: ", smallWeatherDescription);
                 String weatherDescription = weatherObject.getString("main");
 
                 JSONObject systemObject = topObject.getJSONObject("sys");
-                Log.e("SYSTEMOBJECT:", systemObject.toString());
+                Log.i("SYSTEMOBJECT:", systemObject.toString());
                 String sunriseTime = systemObject.getString("sunrise");
                 String sunsetTime = systemObject.getString("sunset");
-                Log.e("sunriseTime:", sunriseTime);
-                Log.e("sunsetTime:", sunsetTime);
+                Log.i("sunriseTime:", sunriseTime);
+                Log.i("sunsetTime:", sunsetTime);
                 Long sunrisenumnum = Long.parseLong(sunriseTime);
                 Long sunsetnum = Long.parseLong(sunsetTime);
                 String convertedSunriseTime = convert_epochTime_to_dayOfWeek(sunrisenumnum);
                 String convertedSunSetTime = convert_epochTime_to_dayOfWeek(sunsetnum);
-                Log.e("ConvertedTimeRise:", convertedSunriseTime);
-                Log.e("ConvertedTimeSet:", convertedSunSetTime);
+                Log.i("ConvertedTimeRise:", convertedSunriseTime);
+                Log.i("ConvertedTimeSet:", convertedSunSetTime);
 
 
                 temperature.setText(Double.toString(temp));
@@ -205,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
                 temperature.setVisibility(View.VISIBLE);
                 currentCity.setVisibility(View.VISIBLE);
                 mainIcon.setVisibility(View.VISIBLE);
-//                logo.setVisibility(View.GONE);
                 humidityValueView.setVisibility(View.VISIBLE);
                 sunriseTextValue.setText(convertedSunriseTime);
                 sunsetValue.setText(convertedSunSetTime);
@@ -264,15 +261,15 @@ public class MainActivity extends AppCompatActivity {
                     case "50n":
                         mainIcon.setImageResource(R.drawable.icon_50n);
                         break;
-
-                    default:
-                        mainIcon.setImageResource(R.drawable.alert);
-                        break;
+//
+//                    default:
+//                        mainIcon.setImageResource(R.drawable.alert);
+//                        break;
                 }
 
             } catch (JSONException e) {
                 String errorMessage = e.toString();
-//                Log.e("ERROR----->", errorMessage);
+                Log.e("ERROR----->", errorMessage);
             }
         }
     }
